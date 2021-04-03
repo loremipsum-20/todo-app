@@ -7,7 +7,7 @@ function TodoList( {todos} ) {
     <div>
       <ul>
         {todos.map((todo, index) => (
-          <Todo key={index} title={todo.title} />
+          <Todo key={index} title={todo.title} isDone={todo.isDone} />
           ))}
       </ul>
       <button>Clear all</button>
