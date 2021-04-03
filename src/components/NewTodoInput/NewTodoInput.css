@@ -1,0 +1,16 @@
+/*button {
+  border: 1px solid;
+  padding: 5px;
+  background-color: #282c34;
+  color: white;
+  border-style: none;
+}*/
+
+.new-input {
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  border-radius: 0px;
+  border-style: none;
+  background-color: lightgrey;
+}
