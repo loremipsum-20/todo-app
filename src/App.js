@@ -39,12 +39,13 @@
 // 3_ decostructive props properties in a variable
 //const { labelBtn, placeholder } = props;
 
-import logo from './logo.svg';
+import React, { useState } from "react";
+//import logo from './logo.svg';
 import './App.css';
 import NewTodoInput from "./components/NewTodoInput/NewTodoInput.js";
 import TodoList from "./components/TodoList/TodoList.js";
 
-const todos = [
+const todosData = [
   {
     id: "134713749319748913",
     title: "Do grocery",
@@ -64,6 +65,12 @@ const todos = [
 
 
 export default function App() {
+  const [todosState, setTodos] = useState(todosData);
+
+  function handleDelete(todoId) {
+    const newTodos = todosState.filter(({ id }) => id !== todoId);
+    setTodos(newTodos);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -73,7 +80,7 @@ export default function App() {
       </header>
       <main>
         <NewTodoInput />
-        <TodoList todos={todos}/>
+        <TodoList todos={todosState} deleteTodo={handleDelete} />
       </main>
       <footer>
         <p>© 2021</p>
