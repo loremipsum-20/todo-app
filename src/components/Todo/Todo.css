@@ -18,3 +18,8 @@ li {
 .fa {
   font-size: 20px;
 }
+
+.itemDone {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

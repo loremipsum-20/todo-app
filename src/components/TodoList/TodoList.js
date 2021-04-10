@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "../Todo/Todo.js";
 import "./TodoList.css";
 
-function TodoList({ todos, deleteTodo }) {
+function TodoList({ todos, deleteTodo, completedTodo }) {
   return (
     <div>
       <ul>
@@ -13,10 +13,10 @@ function TodoList({ todos, deleteTodo }) {
           title={todo.title}
           isDone={todo.isDone}
           deleteTodo={deleteTodo}
+          completedTodo={completedTodo}
           />
           ))}
       </ul>
-      <button>Clear all</button>
     </div>
   );
 }

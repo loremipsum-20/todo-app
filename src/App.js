@@ -45,8 +45,8 @@ import './App.css';
 import NewTodoInput from "./components/NewTodoInput/NewTodoInput.js";
 import TodoList from "./components/TodoList/TodoList.js";
 
-const todosData = [
-  /*{
+/*const todosData = [
+  {
     id: "134713749319748913",
     title: "Do grocery",
     isDone: false
@@ -60,12 +60,12 @@ const todosData = [
     id: "724095784927859",
     title: "Learn about props",
     isDone: false
-  }*/
-];
+  }
+];*/
 
 
 export default function App() {
-  const [todosState, setTodos] = useState(todosData);
+  const [todosState, setTodos] = useState([]);
 
   function handleDelete(todoId) {
     const newTodos = todosState.filter(({ id }) => id !== todoId);
@@ -74,6 +74,16 @@ export default function App() {
   function handleNewTodo(newTodo) {
     const newTodos = [...todosState, newTodo];
     setTodos(newTodos);
+  }
+
+  function handleCompleteTodo(todoId) {
+    const newTodos = todosState.map((todo) => {
+      if (todo.id === todoId) {
+        todo.isDone = !todo.isDone;
+      }
+    return todo;
+  });
+  setTodos(newTodos);
   }
 
   return (
@@ -85,7 +95,11 @@ export default function App() {
       </header>
       <main>
         <NewTodoInput addTodo={handleNewTodo} />
-        <TodoList todos={todosState} deleteTodo={handleDelete} />
+        <TodoList
+        todos={todosState}
+        deleteTodo={handleDelete}
+        completedTodo={handleCompleteTodo} />
+        <button onClick={() => setTodos([])}>Clear all</button>
       </main>
       <footer>
         <p>© 2021</p>
