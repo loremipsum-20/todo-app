@@ -46,10 +46,10 @@ import NewTodoInput from "./components/NewTodoInput/NewTodoInput.js";
 import TodoList from "./components/TodoList/TodoList.js";
 
 const todosData = [
-  {
+  /*{
     id: "134713749319748913",
     title: "Do grocery",
-    isDone: true
+    isDone: false
   },
   {
     id: "34954629579425425",
@@ -60,7 +60,7 @@ const todosData = [
     id: "724095784927859",
     title: "Learn about props",
     isDone: false
-  }
+  }*/
 ];
 
 
@@ -71,6 +71,11 @@ export default function App() {
     const newTodos = todosState.filter(({ id }) => id !== todoId);
     setTodos(newTodos);
   }
+  function handleNewTodo(newTodo) {
+    const newTodos = [...todosState, newTodo];
+    setTodos(newTodos);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -79,7 +84,7 @@ export default function App() {
       </h1>
       </header>
       <main>
-        <NewTodoInput />
+        <NewTodoInput addTodo={handleNewTodo} />
         <TodoList todos={todosState} deleteTodo={handleDelete} />
       </main>
       <footer>
