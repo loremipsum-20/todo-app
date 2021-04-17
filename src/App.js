@@ -77,16 +77,16 @@ import TodoList from "./components/TodoList/TodoList.js";
 
 
 export default function App() {
-  const [todosState, setTodos] = useState([] || JSON.parse(localStorage.getItem("todos")));
+  const [todosState, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
   //useState Inhalt in den Klammern bearbeiten mit localStorage
 
   function handleDelete(todoId) {
     const newTodos = todosState.filter(({ id }) => id !== todoId);
-    setTodos(newTodos);
+    handleSaveTodo(newTodos);
   }
   function handleNewTodo(newTodo) {
     const newTodos = [...todosState, newTodo];
-    setTodos(newTodos);
+    handleSaveTodo(newTodos);
   }
 
   function handleCompleteTodo(todoId) {
@@ -96,12 +96,13 @@ export default function App() {
   }
     return todo;
   });
-  setTodos(newTodos);
+  handleSaveTodo(newTodos);
   }
 
   function handleSaveTodo(newTodos) {
     localStorage.setItem("todos", JSON.stringify(newTodos));
     setTodos(newTodos);
+    //setTodo = save the new state
   }
 
 
@@ -114,13 +115,13 @@ export default function App() {
       </header>
       <main>
         <NewTodoInput addTodo={handleNewTodo}
-        saveTodo={handleSaveTodo} />
+         />
         <TodoList
         todos={todosState}
         deleteTodo={handleDelete}
         completedTodo={handleCompleteTodo}
          />
-        <button onClick={() => setTodos([])}>Clear all</button>
+        <button onClick={() => handleSaveTodo([])}>Clear all</button>
       </main>
       <footer>
         <p>© 2021</p>
