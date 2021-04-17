@@ -1,8 +1,9 @@
 import React from "react";
 import "./Todo.css";
 
-function Todo( { title, isDone, id, completedTodo, deleteTodo }) {
+function Todo( { title, isDone, id, completedTodo, deleteTodo, saveTodo }) {
   return (
+    //add contitional {isEdit ? } but wrap in div to use HTML Tag, every return should have only onne child
     <li className={isDone ? "itemDone" : ""}>
     <div>
     <input

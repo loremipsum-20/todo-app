@@ -38,6 +38,18 @@
 
 // 3_ decostructive props properties in a variable
 //const { labelBtn, placeholder } = props;
+/*
+7_ Save and retrieve items from local storage
+    -> save items when: add new todo, delete todo, edit todo, isDone todo
+    -> retrieve items on Appjs and add them as default state
+
+
+    function save() {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+ */
 
 import React, { useState } from "react";
 //import logo from './logo.svg';
@@ -65,7 +77,8 @@ import TodoList from "./components/TodoList/TodoList.js";
 
 
 export default function App() {
-  const [todosState, setTodos] = useState([]);
+  const [todosState, setTodos] = useState([] || JSON.parse(localStorage.getItem("todos")));
+  //useState Inhalt in den Klammern bearbeiten mit localStorage
 
   function handleDelete(todoId) {
     const newTodos = todosState.filter(({ id }) => id !== todoId);
@@ -80,11 +93,17 @@ export default function App() {
     const newTodos = todosState.map((todo) => {
       if (todo.id === todoId) {
         todo.isDone = !todo.isDone;
-      }
+  }
     return todo;
   });
   setTodos(newTodos);
   }
+
+  function handleSaveTodo(newTodos) {
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
+
 
   return (
     <div className="App">
@@ -94,11 +113,13 @@ export default function App() {
       </h1>
       </header>
       <main>
-        <NewTodoInput addTodo={handleNewTodo} />
+        <NewTodoInput addTodo={handleNewTodo}
+        saveTodo={handleSaveTodo} />
         <TodoList
         todos={todosState}
         deleteTodo={handleDelete}
-        completedTodo={handleCompleteTodo} />
+        completedTodo={handleCompleteTodo}
+         />
         <button onClick={() => setTodos([])}>Clear all</button>
       </main>
       <footer>
