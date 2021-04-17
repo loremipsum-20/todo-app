@@ -105,6 +105,16 @@ export default function App() {
     //setTodo = save the new state
   }
 
+  function handleEdit(editedId, editedTitle) {
+      const newTodos = todosState.map((todo) => {
+        if (todo.id === editedId) {
+          todo.title = editedTitle;
+        }
+        return todo;
+      });
+
+      setTodos(newTodos);
+    }
 
   return (
     <div className="App">
@@ -120,6 +130,7 @@ export default function App() {
         todos={todosState}
         deleteTodo={handleDelete}
         completedTodo={handleCompleteTodo}
+        editTodo={handleEdit}
          />
         <button onClick={() => handleSaveTodo([])}>Clear all</button>
       </main>
