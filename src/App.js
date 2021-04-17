@@ -38,6 +38,18 @@
 
 // 3_ decostructive props properties in a variable
 //const { labelBtn, placeholder } = props;
+/*
+7_ Save and retrieve items from local storage
+    -> save items when: add new todo, delete todo, edit todo, isDone todo
+    -> retrieve items on Appjs and add them as default state
+
+
+    function save() {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+ */
 
 import React, { useState } from "react";
 //import logo from './logo.svg';
@@ -65,26 +77,34 @@ import TodoList from "./components/TodoList/TodoList.js";
 
 
 export default function App() {
-  const [todosState, setTodos] = useState([]);
+  const [todosState, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
+  //useState Inhalt in den Klammern bearbeiten mit localStorage
 
   function handleDelete(todoId) {
     const newTodos = todosState.filter(({ id }) => id !== todoId);
-    setTodos(newTodos);
+    handleSaveTodo(newTodos);
   }
   function handleNewTodo(newTodo) {
     const newTodos = [...todosState, newTodo];
-    setTodos(newTodos);
+    handleSaveTodo(newTodos);
   }
 
   function handleCompleteTodo(todoId) {
     const newTodos = todosState.map((todo) => {
       if (todo.id === todoId) {
         todo.isDone = !todo.isDone;
-      }
+  }
     return todo;
   });
-  setTodos(newTodos);
+  handleSaveTodo(newTodos);
   }
+
+  function handleSaveTodo(newTodos) {
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+    setTodos(newTodos);
+    //setTodo = save the new state
+  }
+
 
   return (
     <div className="App">
@@ -94,12 +114,14 @@ export default function App() {
       </h1>
       </header>
       <main>
-        <NewTodoInput addTodo={handleNewTodo} />
+        <NewTodoInput addTodo={handleNewTodo}
+         />
         <TodoList
         todos={todosState}
         deleteTodo={handleDelete}
-        completedTodo={handleCompleteTodo} />
-        <button onClick={() => setTodos([])}>Clear all</button>
+        completedTodo={handleCompleteTodo}
+         />
+        <button onClick={() => handleSaveTodo([])}>Clear all</button>
       </main>
       <footer>
         <p>© 2021</p>
